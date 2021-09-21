@@ -9,7 +9,7 @@ public class ConfirmationTokenService {
 
     private final ConfirmationTokenRepository confirmationTokenRepository;
 
-    private void saveConfirmationToken(ConfirmationToken confirmationToken){
+    public void saveConfirmationToken(ConfirmationToken confirmationToken){
         confirmationTokenRepository.save(confirmationToken);
     }
 }

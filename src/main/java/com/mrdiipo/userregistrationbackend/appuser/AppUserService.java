@@ -1,5 +1,7 @@
 package com.mrdiipo.userregistrationbackend.appuser;
 
+import com.mrdiipo.userregistrationbackend.registration.token.ConfirmationToken;
+import com.mrdiipo.userregistrationbackend.registration.token.ConfirmationTokenService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,6 +9,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -18,6 +23,9 @@ public class AppUserService implements UserDetailsService {
     private final AppRepository appRepository;
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    private final ConfirmationTokenService confirmationTokenService;
 
     /**
      * Locates the user based on the username. In the actual implementation, the search
@@ -51,8 +59,16 @@ public class AppUserService implements UserDetailsService {
 
        appRepository.save(appUser);
 
-       // TODO: Send confirmation login
+       String token = UUID.randomUUID().toString();
 
+        ConfirmationToken confirmationToken = new ConfirmationToken(token,
+                LocalDateTime.now(),
+                LocalDateTime.now().plusMinutes(15),
+                appUser);
+
+        confirmationTokenService.saveConfirmationToken(confirmationToken);
+
+        // TODO: SEND EMAIL
        return "it works";
 
     }

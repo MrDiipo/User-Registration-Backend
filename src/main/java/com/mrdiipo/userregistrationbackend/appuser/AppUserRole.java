@@ -1,4 +1,6 @@
 package com.mrdiipo.userregistrationbackend.appuser;
 
-public class AppUserRole {
+public enum AppUserRole {
+
+    USER, ADMIN;
 }

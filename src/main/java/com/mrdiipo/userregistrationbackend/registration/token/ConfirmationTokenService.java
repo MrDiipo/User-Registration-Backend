@@ -12,4 +12,11 @@ public class ConfirmationTokenService {
     public void saveConfirmationToken(ConfirmationToken confirmationToken){
         confirmationTokenRepository.save(confirmationToken);
     }
+
+    public ConfirmationToken getToken(String token) {
+        return confirmationTokenRepository.findByToken(token);
+    }
+
+    public void setConfirmedAt(String token) {
+    }
 }

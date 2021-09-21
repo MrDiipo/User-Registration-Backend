@@ -23,7 +23,7 @@ public class AppUserService implements UserDetailsService {
      * object that comes back may have a username that is of a different case than what
      * was actually requested..
      *
-     * @param username the username identifying the user whose data is required.
+     * @param email the username identifying the user whose data is required.
      * @return a fully populated user record (never <code>null</code>)
      * @throws UsernameNotFoundException if the user could not be found or the user has no
      *                                   GrantedAuthority
@@ -32,6 +32,6 @@ public class AppUserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return appRepository.findByEmail(email)
                 .orElseThrow(() ->
-                        new UsernameNotFoundException(String.format(USER_NOT_FOUND, email));
+                        new UsernameNotFoundException(String.format(USER_NOT_FOUND, email)));
     }
 }

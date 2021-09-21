@@ -49,6 +49,8 @@ public class AppUserService implements UserDetailsService {
        String  encodedPassword = bCryptPasswordEncoder.encode(appUser.getPassword());
        appUser.setPassword(encodedPassword);
 
+       appRepository.save(appUser);
+
        // TODO: Send confirmation login
 
        return "it works";

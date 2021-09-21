@@ -1,19 +1,16 @@
 package com.mrdiipo.userregistrationbackend.registration;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
-@Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
+@ToString
 public class RegistrationRequest {
 
     private final String firstName;
     private final String lastName;
-    private String email;
-    private String password;
+    private final String email;
+    private final String password;
 
 }

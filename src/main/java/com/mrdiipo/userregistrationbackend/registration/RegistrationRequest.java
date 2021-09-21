@@ -4,12 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class RegistrationRequest {
+
+    private final String firstName;
+    private final String lastName;
+    private String email;
+    private String password;
 
 }

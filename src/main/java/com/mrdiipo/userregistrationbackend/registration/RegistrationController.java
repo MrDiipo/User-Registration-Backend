@@ -14,9 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class RegistrationController {
 
     @Autowired
-    private AppUserService appUserService;
+    private RegistrationService registrationService;
 
     public String register(@RequestBody RegistrationRequest request){
 
+        return registrationService.request(request);
     }
 }

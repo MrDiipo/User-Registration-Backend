@@ -3,6 +3,8 @@ package com.mrdiipo.userregistrationbackend.registration;
 import com.mrdiipo.userregistrationbackend.appuser.AppUser;
 import com.mrdiipo.userregistrationbackend.appuser.AppUserRole;
 import com.mrdiipo.userregistrationbackend.appuser.AppUserService;
+import com.mrdiipo.userregistrationbackend.email.EmailSender;
+import com.mrdiipo.userregistrationbackend.email.EmailService;
 import com.mrdiipo.userregistrationbackend.registration.token.ConfirmationToken;
 import com.mrdiipo.userregistrationbackend.registration.token.ConfirmationTokenService;
 import lombok.AllArgsConstructor;
@@ -17,7 +19,8 @@ public class RegistrationService {
 
     private final AppUserService appUserService;
     private final EmailValidator emailValidator;
-    private ConfirmationTokenService confirmTokenService;
+    private final ConfirmationTokenService confirmTokenService;
+    private final EmailSender emailSender;
 
     public String request(RegistrationRequest request) {
 
@@ -27,11 +30,20 @@ public class RegistrationService {
             throw new IllegalArgumentException("email not valid");
         }
 
-        return appUserService.signUpUser(new AppUser(request.getFirstName(),
+       String  token = appUserService.signUpUser(new AppUser(request.getFirstName(),
                 request.getLastName(),
                 request.getEmail(),
                 request.getPassword(),
                 AppUserRole.USER));
+        String link = "http://localhost:8080/api/v1/registration/confirm?token=" + token;
+        emailSender.send(request.getEmail(),
+                buildEmail(request.getFirstName(), link));
+        return token;
+    }
+
+    private String buildEmail(String firstName, String link) {
+        // TODO: Implement Email builder html
+        return null;
     }
 
     @Transactional
